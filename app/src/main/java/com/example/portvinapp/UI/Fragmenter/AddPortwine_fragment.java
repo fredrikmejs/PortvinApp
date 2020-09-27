@@ -74,6 +74,8 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         myAdapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner_portType.setAdapter(myAdapter);
 
+        spinner_portType.setSelection(singleton.getPortType());
+
 
         return view;
     }
@@ -143,9 +145,11 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                 portwineObj.setGrade(grade);
                 portwineObj.setPortImage(null);
                 portwineObj.setWineType(wineType);
+
                 if (bitmap != null) {
                     portwineObj.setPortImage(bitmapToByte());
                 } else portwineObj.setPortImage(null);
+
 
                 new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
                     @Override

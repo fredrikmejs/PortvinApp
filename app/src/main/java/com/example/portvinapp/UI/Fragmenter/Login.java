@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,6 +59,7 @@ public class Login extends Fragment {
         if (currentuser != null){
             //Something
         }
+
 
 
         // initialising all views through id defined above

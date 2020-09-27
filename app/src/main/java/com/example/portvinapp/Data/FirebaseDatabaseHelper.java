@@ -8,6 +8,7 @@ import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,9 @@ public class FirebaseDatabaseHelper {
 
     public FirebaseDatabaseHelper(){
         mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference("Portwine");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+        mRef = mDatabase.getReference(userID + "/Portwine");
     }
 
     public void readPortwine(final DataStatus dataStatus){

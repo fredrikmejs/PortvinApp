@@ -16,7 +16,7 @@ public class Singleton {
     Bitmap portBitmap;
     PortwineObj portwineObj;
     int sizeOfRecyler;
-    String key;
+    String key, userID;
 
     private Singleton() {
     }
@@ -100,5 +100,13 @@ public class Singleton {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

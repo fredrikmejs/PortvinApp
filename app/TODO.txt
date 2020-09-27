@@ -3,7 +3,7 @@ TODO
 Fix backtrace (skal testes)
 Tilbage knapper
 design
-
+logud knap
 
 
 

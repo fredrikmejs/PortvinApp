@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -116,11 +117,11 @@ public class RecylerView_Config {
                     Singleton singleton = Singleton.getInstance();
                     singleton.setPortwineObj(portwineObjFinal);
                     singleton.setKey(key);
+                    FragmentManager manager = ((FragmentActivity)mContext).getSupportFragmentManager();
+                    manager.popBackStack();
                     ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditPort()).addToBackStack(null).commit();
-
                 }
             });
-
        }
         this.key = key;
 
@@ -150,11 +151,11 @@ public class RecylerView_Config {
 
     class PortwineAdaptor extends RecyclerView.Adapter<PortWineItemView>{
 
-        private List<PortwineObj> portwinArr;
+        private List<PortwineObj> portwineArr;
         private List<String> mKeys;
 
         public PortwineAdaptor(List<PortwineObj> portwinArr, List<String> mKeys){
-            this.portwinArr = portwinArr;
+            this.portwineArr = portwinArr;
             this.mKeys = mKeys;
         }
 
@@ -167,8 +168,8 @@ public class RecylerView_Config {
 
         @Override
         public void onBindViewHolder(@NonNull PortWineItemView holder, int position) {
-            holder.bind(portwinArr.get(position), portwinArr.get(position), mKeys.get(position));
-            singleton.setPortWineArr(portwinArr);
+            holder.bind(portwineArr.get(position), portwineArr.get(position), mKeys.get(position));
+            singleton.setPortWineArr(portwineArr);
         }
 
         @Override
