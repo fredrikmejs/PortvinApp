@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,16 +13,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 import com.example.portvinapp.UI.Fragmenter.EditPort;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecylerView_Config {
 
+    private Singleton singleton = Singleton.getInstance();
     private Context mContext;
     private PortwineAdaptor mPortAdapter;
     public void setConfig(RecyclerView recyclerView, Context context, List<PortwineObj> portwineArr, List<String> keys){
@@ -42,8 +42,8 @@ public class RecylerView_Config {
         private Button edit;
         private ImageView imageView_wine;
         private TextView winery;
-
         private String key;
+        private String name;
 
         public PortWineItemView(ViewGroup parent){
             super(LayoutInflater.from(mContext).inflate(R.layout.portwine_list_element, parent, false));
@@ -64,21 +64,32 @@ public class RecylerView_Config {
 
         }
 
-        public void bind(final PortwineObj portwineObj, String key){
+        public void bind(final PortwineObj portwineObjFinal, PortwineObj portwineObj, final String key){
+
+            name = ""+Portwine_enum.forValue(singleton.getPortType());
+            //correctPort(name);
+
+            String name1 = portwineObj.getType();
+            if (name1.equals(name)) {
 
 
-            portwineType.setText("Port type: " + portwineObj.getWineType());
+            correctPort();
+            portwineType.setText("Port type: " + name);
 
-            vintage.setText("Vintage year: " + portwineObj.getVintage());
 
+            if (portwineObj.getVintage() != -1) {
+                vintage.setText("Vintage year: " + portwineObj.getVintage());
+            } else {
+                vintage.setVisibility(View.INVISIBLE);
+            }
 
-            if (portwineObj.getBottleYear() != -1){
+            if (portwineObj.getBottleYear() != -1) {
                 bottleYear.setText("" + portwineObj.getBottleYear());
             } else {
                 bottleYear.setVisibility(View.INVISIBLE);
             }
 
-            if (portwineObj.getGrade() != -1){
+            if (portwineObj.getGrade() != -1) {
                 grade.setText("" + portwineObj.getGrade());
             } else {
                 grade.setVisibility(View.INVISIBLE);
@@ -90,24 +101,45 @@ public class RecylerView_Config {
                 imageView_wine.setVisibility(View.INVISIBLE);
             }
 
-            winery.setText("" +portwineObj.getWineType());
+            winery.setText("" + portwineObj.getWinery());
 
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Singleton singleton = Singleton.getInstance();
-                    singleton.setPortwineObj(portwineObj);
-                    ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container,new EditPort()).addToBackStack(null).commit();
+                    singleton.setPortwineObj(portwineObjFinal);
+                    singleton.setKey(key);
+                    ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditPort()).addToBackStack(null).commit();
 
                 }
             });
 
-            this.key = key;
-
-        }
-
+       }
+        this.key = key;
 
     }
+
+    private void correctPort(){
+
+        switch (name){
+            case "LBV":
+                name = "Late Bottle Vintage";
+                break;
+            case "age10":
+                name = "10 Year";
+                break;
+            case "age20":
+                name = "20 Year";
+                break;
+            case "age30":
+                name = "30 Year";
+                break;
+            case "age40":
+                name = "40 Year";
+                break;
+        }
+    }
+}
 
     class PortwineAdaptor extends RecyclerView.Adapter<PortWineItemView>{
 
@@ -128,12 +160,13 @@ public class RecylerView_Config {
 
         @Override
         public void onBindViewHolder(@NonNull PortWineItemView holder, int position) {
-            holder.bind(portwinArr.get(position),mKeys.get(position));
+            holder.bind(portwinArr.get(position), portwinArr.get(position), mKeys.get(position));
+            singleton.setPortWineArr(portwinArr);
         }
 
         @Override
         public int getItemCount() {
-            return portwinArr.size();
+            return singleton.getSizeOfRecyler();
         }
     }
 

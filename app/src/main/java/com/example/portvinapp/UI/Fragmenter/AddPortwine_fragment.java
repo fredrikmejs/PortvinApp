@@ -20,9 +20,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.portvinapp.Data.FirebaseDatabaseHelper;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
+
+import java.util.List;
 
 
 public class AddPortwine_fragment extends Fragment implements View.OnClickListener {
@@ -83,15 +86,18 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == button_save){
+            PortwineObj portwineObj = new PortwineObj();
             String winery, type, wineType;
             int vintage = -1, bottleYear = -1, grade = -1;
 
             try {
                 winery = editText_winery.getText().toString();
-                type = spinner_portType.getSelectedItem().toString();
+
+
                 wineType = "Portwine";
                 if (!editText_vintage.getText().toString().equals("")) {
                     vintage = Integer.parseInt(editText_vintage.getText().toString());
+
                 }
                 if (!editText_bottleYear.getText().toString().equals("")) {
                     bottleYear = Integer.parseInt(editText_bottleYear.getText().toString());
@@ -100,9 +106,56 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     grade = Integer.parseInt(editText_grade.getText().toString());
                 }
 
+                type = spinner_portType.getSelectedItem().toString();
+                switch (type){
+                    case "Late Bottle Vintage":
+                        type = "LBV";
+                        break;
+                    case "10 Year":
+                        type = "age10";
+                        break;
+                    case "20 Year":
+                        type = "age20";
+                        break;
+                    case "30 Year":
+                        type = "age30";
+                        break;
+                    case "40 Year":
+                        type = "age40";
+                        break;
+                }
+
+                portwineObj.setVintage(vintage);
+                portwineObj.setWinery(winery);
+                portwineObj.setType(type);
+                portwineObj.setBottleYear(bottleYear);
+                portwineObj.setGrade(grade);
+                portwineObj.setPortImage(null);
+                portwineObj.setWineType(wineType);
+
+
+                new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys) {
+
+                    }
+
+                    @Override
+                    public void DataIsInserted() {
+                    }
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+
+                    }
+                });
 
                 //TODO change image
-                singleton.addPortwine(new PortwineObj(String.valueOf(bottleYear),String.valueOf(grade),null,type,""+vintage,wineType,winery));
+ //               singleton.addPortwine(new PortwineObj(String.valueOf(bottleYear),String.valueOf(grade),null,type,""+vintage,wineType,winery));
 
                 Fragment fragment = new PortWine_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();

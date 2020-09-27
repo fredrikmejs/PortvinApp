@@ -20,11 +20,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.portvinapp.Data.FirebaseDatabaseHelper;
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EditPort extends Fragment implements View.OnClickListener {
 Singleton singleton = Singleton.getInstance();
@@ -99,9 +102,8 @@ PortwineObj portwineObj;
         myAdapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner_portType.setAdapter(myAdapter);
 
-        if (!portwineObj.getType().equals("")){
-            spinnerSelection();
-        }
+
+        spinner_portType.setSelection(singleton.getPortType());
 
         return view;
     }
@@ -135,7 +137,37 @@ PortwineObj portwineObj;
                 }
 
                 //TODO use with database
-                singleton.updatePortWineArr(portwineObj);
+                PortwineObj portwineObj = new PortwineObj();
+                portwineObj.setWinery(winery);
+                portwineObj.setGrade(grade);
+                portwineObj.setType(type);
+                portwineObj.setWineType(wineType);
+                portwineObj.setVintage(vintage);
+                portwineObj.setBottleYear(bottleYear);
+                //TODO switch to bitmap later
+                portwineObj.setPortImage(null);
+
+                new FirebaseDatabaseHelper().updatePortwine(singleton.getKey(), portwineObj, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys) {
+
+                    }
+
+                    @Override
+                    public void DataIsInserted() {
+
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+
+                    }
+                });
 
                 Fragment fragment = new PortWine_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -154,41 +186,38 @@ PortwineObj portwineObj;
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent,0);
         }
-     }
 
-     private void spinnerSelection(){
+        if (v == button_delete){
 
-        switch (portwineObj.getWineType()){
-            case "Tawny":
-                spinner_portType.setSelection(0);
-                break;
-            case "White":
-                spinner_portType.setSelection(1);
-                break;
-            case "Colheita":
-                spinner_portType.setSelection(2);
-                break;
-            case "Vintage":
-                spinner_portType.setSelection(3);
-                break;
-            case "Late Bottle Vintage":
-                spinner_portType.setSelection(4);
-                break;
-            case "10 Year":
-                spinner_portType.setSelection(5);
-                break;
-            case "20 year:":
-                spinner_portType.setSelection(6);
-                break;
-            case "30 year:":
-                spinner_portType.setSelection(7);
-                break;
-            case "40 year:":
-                spinner_portType.setSelection(8);
-                break;
-            default:
-                spinner_portType.setSelection(9);
-                break;
+            new FirebaseDatabaseHelper().deletePortwine(singleton.getKey(), new FirebaseDatabaseHelper.DataStatus() {
+                @Override
+                public void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys) {
+
+                }
+
+                @Override
+                public void DataIsInserted() {
+
+                }
+
+                @Override
+                public void DataIsUpdated() {
+
+                }
+
+                @Override
+                public void DataIsDeleted() {
+
+                }
+            });
+
+            Fragment fragment = new PortWine_Fragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(null);
+            FragmentManager manager = getActivity().getSupportFragmentManager();
+            manager.popBackStack();
+            transaction.commit();
         }
      }
 }

@@ -4,7 +4,10 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
+import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,10 +24,11 @@ public class FirebaseDatabaseHelper {
     private List<PortwineObj> portwineArr = new ArrayList<>();
 
 
+
     public interface DataStatus{
         void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys);
         void DataIsInserted();
-        void DataisUpdated();
+        void DataIsUpdated();
         void DataIsDeleted();
     }
 
@@ -40,13 +44,21 @@ public class FirebaseDatabaseHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 portwineArr.clear();
+                Singleton singleton = Singleton.getInstance();
+                int size = 0;
                 ArrayList<String> keys = new ArrayList<>();
                 for(DataSnapshot keynode : dataSnapshot.getChildren()){
                     keys.add(keynode.getKey());
                     PortwineObj portwineObj = keynode.getValue(PortwineObj.class);
+                    String name = ""+ Portwine_enum.forValue(singleton.getPortType());
 
-                    portwineArr.add(portwineObj);
+                    if (portwineObj.getType().equals(name)){
+                        size++;
+                        portwineArr.add(portwineObj);
+                    }
+
                 }
+                singleton.setSizeOfRecyler(size);
                 dataStatus.DataIsLoaded(portwineArr,keys);
             }
 
@@ -55,7 +67,35 @@ public class FirebaseDatabaseHelper {
 
             }
         });
+    }
 
+    public void addPortwine(PortwineObj portwineObj, final DataStatus dataStatus){
+        String key = mRef.push().getKey();
+        mRef.child(key).setValue(portwineObj).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsInserted();
+            }
+        });
+    }
+
+
+    public void updatePortwine(String key, PortwineObj portwineObj, final DataStatus dataStatus){
+        mRef.child(key).setValue(portwineObj).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsUpdated();
+            }
+        });
+    }
+
+    public void deletePortwine(String key, final DataStatus dataStatus){
+        mRef.child(key).setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsDeleted();
+            }
+        });
     }
 
 }

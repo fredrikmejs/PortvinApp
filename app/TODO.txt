@@ -1,8 +1,9 @@
 
 TODO
 Fix backtrace (skal testes)
-firebase
+Tilbage knapper
 design
+upload/hente billeder
 
 
 
@@ -12,3 +13,4 @@ DONE
 Kamera
 edit
 Authentication
+firebase (CRUD)

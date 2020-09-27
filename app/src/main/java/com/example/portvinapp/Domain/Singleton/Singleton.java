@@ -6,14 +6,17 @@ import android.widget.ProgressBar;
 import com.example.portvinapp.Objekter.PortwineObj;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Singleton {
     private static final Singleton ourInstance = new Singleton();
     String wineType;
     int portType, position;
-    ArrayList<PortwineObj> portWineArr = new ArrayList<>();
+    List<PortwineObj> portWineArr = new ArrayList<>();
     Bitmap portBitmap;
     PortwineObj portwineObj;
+    int sizeOfRecyler;
+    String key;
 
     private Singleton() {
     }
@@ -39,7 +42,7 @@ public class Singleton {
         this.portType = portType;
     }
 
-    public ArrayList<PortwineObj> getPortWineArr() {
+    public List<PortwineObj> getPortWineArr() {
         if (portWineArr.size() == 0){
           //add a way to get data
         }
@@ -50,14 +53,13 @@ public class Singleton {
         portWineArr.add(portwineObj);
     }
 
-    public void setPortWineArr(ArrayList<PortwineObj> portWineArr) {
+    public void setPortWineArr(List<PortwineObj> portWineArr) {
         this.portWineArr = portWineArr;
     }
 
     public void updatePortWineArr(PortwineObj obj){
 
         portWineArr.add(position,obj);
-
     }
 
     public Bitmap getPortBitmap() {
@@ -82,5 +84,21 @@ public class Singleton {
 
     public void setPortwineObj(PortwineObj portwineObj) {
         this.portwineObj = portwineObj;
+    }
+
+    public int getSizeOfRecyler() {
+        return sizeOfRecyler;
+    }
+
+    public void setSizeOfRecyler(int sizeOfRecyler) {
+        this.sizeOfRecyler = sizeOfRecyler;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

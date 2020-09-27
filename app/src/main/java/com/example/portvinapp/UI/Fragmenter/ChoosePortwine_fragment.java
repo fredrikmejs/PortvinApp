@@ -67,25 +67,25 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         Fragment fragment = new PortWine_Fragment();
         singleton.setWineType("PortWine");
         if (v.getId() ==R.id.button_tawny){
-            singleton.setPortType(1);
+            singleton.setPortType(0);
         } else if (v.getId()==R.id.button_white) {
-            singleton.setPortType(2);
+            singleton.setPortType(1);
         } else if (v.getId()==R.id.button_colheita){
-            singleton.setPortType(3);
+            singleton.setPortType(2);
         } else if (v.getId()==R.id.button_vintage){
-            singleton.setPortType(4);
+            singleton.setPortType(3);
         } else if (v.getId()==R.id.button_LBV) {
-            singleton.setPortType(5);
+            singleton.setPortType(4);
         } else if(v.getId()==R.id.button_10year){
-            singleton.setPortType(6);
+            singleton.setPortType(5);
         } else if(v.getId()==R.id.button_20year){
-            singleton.setPortType(7);
+            singleton.setPortType(6);
         } else if(v.getId()==R.id.button_30year){
-            singleton.setPortType(8);
+            singleton.setPortType(7);
         } else if(v.getId()==R.id.button_40year){
-            singleton.setPortType(9);
+            singleton.setPortType(8);
         } else {
-            singleton.setPortType(10);
+            singleton.setPortType(9);
         }
 
 

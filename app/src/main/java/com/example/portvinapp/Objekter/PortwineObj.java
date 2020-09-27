@@ -13,14 +13,14 @@ public class PortwineObj {
 
     }
 
-    public PortwineObj(String bottle_year, String grade, String bitmap, String type, String vintage, String wine_type, String winery){
+    public PortwineObj(String bottle_year, String grade, String type, String vintage, String wine_type, String winery){
         this.winery = winery;
         this.vintage = Integer.parseInt(vintage);
         this.bottle_year = Integer.parseInt(bottle_year);
         this.grade = Integer.parseInt(grade);
         this.type = type;
         this.wine_type = wine_type;
-        this.portImage = bitmap;
+
     }
 
 /*
