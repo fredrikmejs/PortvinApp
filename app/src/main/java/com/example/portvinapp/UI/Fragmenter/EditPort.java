@@ -2,6 +2,7 @@ package com.example.portvinapp.UI.Fragmenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +116,15 @@ PortwineObj portwineObj;
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bitmap = (Bitmap) data.getExtras().get("data");
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(90);
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth(), true);
+
+        bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         imageView_port.setImageBitmap(bitmap);
+
         singleton.setPortBitmap(bitmap);
     }
 
@@ -144,8 +155,12 @@ PortwineObj portwineObj;
                 portwineObj.setWineType(wineType);
                 portwineObj.setVintage(vintage);
                 portwineObj.setBottleYear(bottleYear);
-                //TODO switch to bitmap later
-                portwineObj.setPortImage(null);
+
+                if (bitmap != null){
+                    portwineObj.setPortImage(bitmapToByte());
+                } else {
+                    portwineObj.setPortImage(null);
+                }
 
                 new FirebaseDatabaseHelper().updatePortwine(singleton.getKey(), portwineObj, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
@@ -220,4 +235,15 @@ PortwineObj portwineObj;
             transaction.commit();
         }
      }
+
+
+    private String bitmapToByte(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap = Bitmap.createScaledBitmap(bitmap,60,60,true);
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+        byte[] byteArr = byteArrayOutputStream.toByteArray();
+        String encodeImage = Base64.encodeToString(byteArr,Base64.DEFAULT);
+
+        return encodeImage;
+    }
 }

@@ -3,7 +3,7 @@ TODO
 Fix backtrace (skal testes)
 Tilbage knapper
 design
-upload/hente billeder
+
 
 
 
@@ -14,3 +14,4 @@ Kamera
 edit
 Authentication
 firebase (CRUD)
+upload/hente billeder

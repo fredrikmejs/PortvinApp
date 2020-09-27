@@ -1,24 +1,26 @@
 package com.example.portvinapp.Objekter;
 
-import android.graphics.Bitmap;
+
+import android.util.Base64;
 
 public class PortwineObj {
 
     String winery, type, wine_type;
     int vintage, bottle_year, grade;
-
+    String bitmap;
     String portImage;
 
     public PortwineObj(){
 
     }
 
-    public PortwineObj(String bottle_year, String grade, String type, String vintage, String wine_type, String winery){
+    public PortwineObj(String bottle_year, String bitmap, String grade, String type, String vintage, String wine_type, String winery){
         this.winery = winery;
         this.vintage = Integer.parseInt(vintage);
         this.bottle_year = Integer.parseInt(bottle_year);
         this.grade = Integer.parseInt(grade);
         this.type = type;
+        this.bitmap = bitmap;
         this.wine_type = wine_type;
 
     }
@@ -91,4 +93,5 @@ public class PortwineObj {
     public void setPortImage(String portImage) {
         this.portImage = portImage;
     }
+
 }

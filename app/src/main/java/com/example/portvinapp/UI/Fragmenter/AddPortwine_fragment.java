@@ -2,6 +2,7 @@ package com.example.portvinapp.UI.Fragmenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 
@@ -79,6 +82,14 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bitmap = (Bitmap) data.getExtras().get("data");
+
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(90);
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth(), true);
+
+        bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         imageView_port.setImageBitmap(bitmap);
         singleton.setPortBitmap(bitmap);
     }
@@ -132,7 +143,9 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                 portwineObj.setGrade(grade);
                 portwineObj.setPortImage(null);
                 portwineObj.setWineType(wineType);
-
+                if (bitmap != null) {
+                    portwineObj.setPortImage(bitmapToByte());
+                } else portwineObj.setPortImage(null);
 
                 new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
@@ -145,17 +158,12 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     }
                     @Override
                     public void DataIsUpdated() {
-
                     }
-
                     @Override
                     public void DataIsDeleted() {
 
                     }
                 });
-
-                //TODO change image
- //               singleton.addPortwine(new PortwineObj(String.valueOf(bottleYear),String.valueOf(grade),null,type,""+vintage,wineType,winery));
 
                 Fragment fragment = new PortWine_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -174,5 +182,15 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent,0);
         }
+    }
+
+    private String bitmapToByte(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap = Bitmap.createScaledBitmap(bitmap,60,60,true);
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+        byte[] byteArr = byteArrayOutputStream.toByteArray();
+        String encodeImage = Base64.encodeToString(byteArr,Base64.DEFAULT);
+
+        return encodeImage;
     }
 }

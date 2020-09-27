@@ -1,6 +1,9 @@
 package com.example.portvinapp.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +70,7 @@ public class RecylerView_Config {
         public void bind(final PortwineObj portwineObjFinal, PortwineObj portwineObj, final String key){
 
             name = ""+Portwine_enum.forValue(singleton.getPortType());
-            //correctPort(name);
+
 
             String name1 = portwineObj.getType();
             if (name1.equals(name)) {
@@ -96,9 +99,13 @@ public class RecylerView_Config {
             }
 
             if (portwineObj.getPortImage() != null) {
-                //imageView_wine.setImageBitmap(portwineObj.getPortImage());
+                Bitmap bitmap = null;
+                byte[] b = Base64.decode(portwineObj.getPortImage(),Base64.DEFAULT);
+                bitmap = BitmapFactory.decodeByteArray(b,0,b.length);
+
+                imageView_wine.setImageBitmap(bitmap);
             } else {
-                imageView_wine.setVisibility(View.INVISIBLE);
+//                imageView_wine.setVisibility(View.INVISIBLE);
             }
 
             winery.setText("" + portwineObj.getWinery());
