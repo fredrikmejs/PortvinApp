@@ -2,7 +2,6 @@
 package com.example.portvinapp.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
-import com.example.portvinapp.Objekter.PortvineObj;
+import com.example.portvinapp.Domain.Singleton.Singleton;
+import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
+import com.example.portvinapp.UI.Fragmenter.EditPort;
 
 import java.util.ArrayList;
 
@@ -27,9 +29,9 @@ import java.util.ArrayList;
 public class Adaptor_wine extends ArrayAdapter<String> {
 
     Context context;
-    ArrayList<PortvineObj> portWineArr =  new ArrayList<>();
+    ArrayList<PortwineObj> portWineArr =  new ArrayList<>();
 
-    public Adaptor_wine(Context context,ArrayList<PortvineObj> portWineArr) {
+    public Adaptor_wine(Context context,ArrayList<PortwineObj> portWineArr) {
         super(context, R.layout.portwine_list_element);
         this.context = context;
         this.portWineArr = portWineArr;
@@ -42,7 +44,7 @@ public class Adaptor_wine extends ArrayAdapter<String> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
 
         if (convertView == null) {
@@ -63,7 +65,7 @@ public class Adaptor_wine extends ArrayAdapter<String> {
         }
 
         if(portWineArr.get(position).getPortImage() != null) {
-            viewHolder.imagePort.setImageBitmap(portWineArr.get(position).getPortImage());
+       //     viewHolder.imagePort.setImageBitmap(portWineArr.get(position).getPortImage());
         } else{
             viewHolder.imagePort.setVisibility(View.INVISIBLE);
         }
@@ -85,8 +87,17 @@ public class Adaptor_wine extends ArrayAdapter<String> {
         if (portWineArr.get(position).getVintage() != -1){
             viewHolder.textView_vintage.setText("Vintage year: " + portWineArr.get(position).getVintage());
         } else {
-            viewHolder.textView_vintage.setVisibility(View.VISIBLE);
+            viewHolder.textView_vintage.setVisibility(View.INVISIBLE);
         }
+
+        viewHolder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Singleton singleton = Singleton.getInstance();
+                singleton.setPosition(position);
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.container,new EditPort()).addToBackStack(null).commit();
+            }
+        });
 
 
         return convertView;

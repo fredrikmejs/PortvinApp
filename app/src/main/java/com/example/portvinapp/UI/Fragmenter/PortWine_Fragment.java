@@ -11,23 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.portvinapp.Adapter.Adaptor_wine;
+import com.example.portvinapp.Adapter.RecylerView_Config;
+import com.example.portvinapp.Data.FirebaseDatabaseHelper;
 import com.example.portvinapp.Domain.Singleton.Singleton;
-import com.example.portvinapp.Objekter.PortvineObj;
+import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PortWine_Fragment extends Fragment implements View.OnClickListener {
 
     Button addWine;
     Singleton singleton = Singleton.getInstance();
-    ArrayList<PortvineObj> portwinesArrCopy = new ArrayList<>();
-    ArrayList<PortvineObj> portwinesArr = new ArrayList<>();
+    ArrayList<PortwineObj> portwinesArrCopy = new ArrayList<>();
+    List<PortwineObj> portwinesArr = new ArrayList<>();
+    RecyclerView mRecyclerView;
+
 
     public PortWine_Fragment() {
         // Required empty public constructor
@@ -42,31 +45,63 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wine, container, false);
+        View view = inflater.inflate(R.layout.recyclerview_config, container, false);
 
 
 
         addWine = view.findViewById(R.id.button_addWine);
         addWine.setOnClickListener(this);
 
-        ListView list = view.findViewById(R.id.portwine_list);
+        //ListView list = view.findViewById(R.id.portwine_list);
+
+        mRecyclerView = view.findViewById(R.id.portwine_recylervview);
+
+        new FirebaseDatabaseHelper().readPortwine(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys) {
+                new RecylerView_Config().setConfig(mRecyclerView,getContext(),portwineArr, keys);
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataisUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
 
 
+        /*
         //Test data
         if (singleton.getPortWineArr().size() == 0) {
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
-            singleton.addPortwine(new PortvineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
+            singleton.addPortwine(new PortwineObj(null, "Graham", 1999, 2000, 10, "Portwine", "Vintage"));
         }
+         */
+
+
         whatPort();
 
+
+        /*
         if(portwinesArr != null && portwinesArr.size() > 0) {
             Adaptor_wine adaptor = new Adaptor_wine(getContext(), portwinesArr);
             list.setAdapter(adaptor);
         }
+
+         */
 
         return view;
     }
@@ -126,7 +161,7 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
 
         portwinesArrCopy.addAll(singleton.getPortWineArr());
 
-        for (PortvineObj a:portwinesArrCopy) {
+        for (PortwineObj a:portwinesArrCopy) {
 
             String b = a.getWineType();
             if (b.equals(portType)){

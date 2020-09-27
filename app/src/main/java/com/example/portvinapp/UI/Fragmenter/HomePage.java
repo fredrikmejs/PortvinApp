@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.portvinapp.R;
 
@@ -50,6 +51,9 @@ public class HomePage extends Fragment implements View.OnClickListener {
             transaction.replace(R.id.container,fragment);
             transaction.addToBackStack(null);
             transaction.commit();
+        }
+        if (v == redWine_button || v == whiteWine_button || v == rose_button){
+            Toast.makeText(getContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
         }
     }
 }

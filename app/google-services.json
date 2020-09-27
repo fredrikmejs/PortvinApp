@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "246487032611",
+    "firebase_url": "https://portvin-b9502.firebaseio.com",
+    "project_id": "portvin-b9502",
+    "storage_bucket": "portvin-b9502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246487032611:android:5a096b41c3f625f4fb6296",
+        "android_client_info": {
+          "package_name": "com.example.portvinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246487032611-auff3rtgh6q8pqhej5ptouspbl84jhcb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.portvinapp",
+            "certificate_hash": "a36fc6751457a47638c252b3f0908f3ec35e2685"
+          }
+        },
+        {
+          "client_id": "246487032611-j36sdu7sqdjj6fcf38mh9n7mpee076qo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGsb8k0_Ff-ZLYt5S22R3x0tBebnWH244"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246487032611-j36sdu7sqdjj6fcf38mh9n7mpee076qo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

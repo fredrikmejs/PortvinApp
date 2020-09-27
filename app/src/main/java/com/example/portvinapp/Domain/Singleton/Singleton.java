@@ -1,14 +1,19 @@
 package com.example.portvinapp.Domain.Singleton;
 
-import com.example.portvinapp.Objekter.PortvineObj;
+import android.graphics.Bitmap;
+import android.widget.ProgressBar;
+
+import com.example.portvinapp.Objekter.PortwineObj;
 
 import java.util.ArrayList;
 
 public class Singleton {
     private static final Singleton ourInstance = new Singleton();
     String wineType;
-    int portType;
-    ArrayList<PortvineObj> portWineArr = new ArrayList<>();
+    int portType, position;
+    ArrayList<PortwineObj> portWineArr = new ArrayList<>();
+    Bitmap portBitmap;
+    PortwineObj portwineObj;
 
     private Singleton() {
     }
@@ -34,18 +39,48 @@ public class Singleton {
         this.portType = portType;
     }
 
-    public ArrayList<PortvineObj> getPortWineArr() {
+    public ArrayList<PortwineObj> getPortWineArr() {
         if (portWineArr.size() == 0){
           //add a way to get data
         }
         return portWineArr;
     }
 
-    public void addPortwine(PortvineObj portvineObj){
-        portWineArr.add(portvineObj);
+    public void addPortwine(PortwineObj portwineObj){
+        portWineArr.add(portwineObj);
     }
 
-    public void setPortWineArr(ArrayList<PortvineObj> portWineArr) {
+    public void setPortWineArr(ArrayList<PortwineObj> portWineArr) {
         this.portWineArr = portWineArr;
+    }
+
+    public void updatePortWineArr(PortwineObj obj){
+
+        portWineArr.add(position,obj);
+
+    }
+
+    public Bitmap getPortBitmap() {
+        return portBitmap;
+    }
+
+    public void setPortBitmap(Bitmap portBitmap) {
+        this.portBitmap = portBitmap;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public PortwineObj getPortwineObj() {
+        return portwineObj;
+    }
+
+    public void setPortwineObj(PortwineObj portwineObj) {
+        this.portwineObj = portwineObj;
     }
 }

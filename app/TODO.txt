@@ -1,0 +1,14 @@
+
+TODO
+Fix backtrace (skal testes)
+firebase
+design
+
+
+
+
+
+DONE
+Kamera
+edit
+Authentication
