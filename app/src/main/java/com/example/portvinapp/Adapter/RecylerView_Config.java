@@ -23,6 +23,7 @@ import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 import com.example.portvinapp.UI.Fragmenter.EditPort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecylerView_Config {
@@ -30,8 +31,10 @@ public class RecylerView_Config {
     private Singleton singleton = Singleton.getInstance();
     private Context mContext;
     private PortwineAdaptor mPortAdapter;
-    public void setConfig(RecyclerView recyclerView, Context context, List<PortwineObj> portwineArr, List<String> keys){
+    private List<PortwineObj> portwineArr = new ArrayList<>();
+    public void setConfig(RecyclerView recyclerView, Context context, List<String> keys){
         mContext = context;
+        portwineArr.addAll(singleton.getPortWineArr());
         mPortAdapter = new PortwineAdaptor(portwineArr,keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mPortAdapter);
@@ -40,6 +43,7 @@ public class RecylerView_Config {
     class PortWineItemView extends RecyclerView.ViewHolder {
 
         private TextView portwineType;
+        private TextView qty;
         private TextView vintage;
         private TextView bottleYear;
         private TextView grade;
@@ -66,6 +70,8 @@ public class RecylerView_Config {
 
             winery = itemView.findViewById(R.id.winery);
 
+            qty = itemView.findViewById(R.id.QTY);
+
         }
 
         public void bind(final PortwineObj portwineObjFinal, PortwineObj portwineObj, final String key){
@@ -88,25 +94,25 @@ public class RecylerView_Config {
             }
 
             if (portwineObj.getBottleYear() != -1) {
-                bottleYear.setText("" + portwineObj.getBottleYear());
+                bottleYear.setText("Bottle year: " + portwineObj.getBottleYear());
             } else {
                 bottleYear.setVisibility(View.INVISIBLE);
             }
 
             if (portwineObj.getGrade() != -1) {
-                grade.setText("" + portwineObj.getGrade());
+                grade.setText("Points: \n" + portwineObj.getGrade());
             } else {
                 grade.setVisibility(View.INVISIBLE);
             }
+            qty.setText("Qty: " + portwineObj.getQty());
+
 
             if (portwineObj.getPortImage() != null) {
-                Bitmap bitmap = null;
+                Bitmap bitmap;
                 byte[] b = Base64.decode(portwineObj.getPortImage(),Base64.DEFAULT);
                 bitmap = BitmapFactory.decodeByteArray(b,0,b.length);
 
                 imageView_wine.setImageBitmap(bitmap);
-            } else {
-//                imageView_wine.setVisibility(View.INVISIBLE);
             }
 
             winery.setText("" + portwineObj.getWinery());

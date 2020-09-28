@@ -36,7 +36,7 @@ public class Login extends Fragment {
     private Button Btn, registration;
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
-    private FirebaseUser currentuser;
+
 
     public Login() {
         // Required empty public constructor
@@ -54,13 +54,16 @@ public class Login extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-
-        onStart();
-        if (currentuser != null){
-            //Something
+        String a = mAuth.getUid();
+        if (mAuth.getCurrentUser() != null){
+            Fragment fragment = new HomePage();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(null);
+            FragmentManager manager = getActivity().getSupportFragmentManager();
+            manager.popBackStack();
+            transaction.commit();
         }
-
-
 
         // initialising all views through id defined above
         emailTextView = view.findViewById(R.id.email);
@@ -76,7 +79,10 @@ public class Login extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, fragment);
                 transaction.addToBackStack(null);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStack();
                 transaction.commit();
+
             }
         });
 
@@ -92,11 +98,9 @@ public class Login extends Fragment {
         return view;
     }
 
-
     @Override
     public void onStart(){
         super.onStart();
-        currentuser = mAuth.getCurrentUser();
     }
 
     private void loginUserAccount(){
@@ -145,7 +149,6 @@ public class Login extends Fragment {
 
                                     // if sign-in is successful
                                     // intent to home activity
-                                    //TODO start new fragment
                                     Fragment fragment = new HomePage();
                                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                     transaction.replace(R.id.container, fragment);

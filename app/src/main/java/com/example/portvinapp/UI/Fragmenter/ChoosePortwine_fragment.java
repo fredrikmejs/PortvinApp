@@ -17,7 +17,7 @@ import com.example.portvinapp.R;
 
 public class ChoosePortwine_fragment extends Fragment implements View.OnClickListener {
 
-    Button tawny_button, white_button, colheita_button, vintage_button, lbv_button, year10_button, year20_button, year30_button, year40_button, otherPort_button;
+    Button tawny_button, white_button, colheita_button, vintage_button, lbv_button, year10_button, year20_button, year30_button, year40_button, otherPort_button, back_button;
 
     public ChoosePortwine_fragment() {
         // Required empty public constructor
@@ -53,6 +53,19 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         year40_button.setOnClickListener(this);
         otherPort_button = view.findViewById(R.id.button_OtherPort);
         otherPort_button.setOnClickListener(this);
+        back_button = view.findViewById(R.id.button_backChoose);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new HomePage();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(null);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStack();
+                transaction.commit();
+            }
+        });
 
 
 
@@ -65,7 +78,6 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         Singleton singleton = Singleton.getInstance();
 
         Fragment fragment = new PortWine_Fragment();
-        singleton.setWineType("PortWine");
         if (v.getId() ==R.id.button_tawny){
             singleton.setPortType(0);
         } else if (v.getId()==R.id.button_white) {
@@ -92,6 +104,8 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        manager.popBackStack();
         transaction.commit();
 
 

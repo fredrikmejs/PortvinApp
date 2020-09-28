@@ -6,7 +6,7 @@ import android.util.Base64;
 public class PortwineObj {
 
     String winery, type, wine_type;
-    int vintage, bottle_year, grade;
+    int vintage, bottle_year, grade, qty;
     String bitmap;
     String portImage;
 
@@ -14,7 +14,7 @@ public class PortwineObj {
 
     }
 
-    public PortwineObj(String bottle_year, String bitmap, String grade, String type, String vintage, String wine_type, String winery){
+    public PortwineObj(String bottle_year, String bitmap, String grade, String type, String vintage, String wine_type, String winery, String qty){
         this.winery = winery;
         this.vintage = Integer.parseInt(vintage);
         this.bottle_year = Integer.parseInt(bottle_year);
@@ -22,6 +22,7 @@ public class PortwineObj {
         this.type = type;
         this.bitmap = bitmap;
         this.wine_type = wine_type;
+        this.qty = Integer.parseInt(qty);
 
     }
 
@@ -94,4 +95,11 @@ public class PortwineObj {
         this.portImage = portImage;
     }
 
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
 }

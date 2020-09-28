@@ -1,17 +1,19 @@
 
 TODO
-Fix backtrace (skal testes)
-Tilbage knapper
+
 design
-logud knap
 
 
 
 
 
 DONE
+
 Kamera
 edit
 Authentication
 firebase (CRUD)
+logud knap
 upload/hente billeder
+Fix backtrace (skal testes)
+Tilbage knapper

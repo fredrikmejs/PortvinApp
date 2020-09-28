@@ -10,13 +10,14 @@ import java.util.List;
 
 public class Singleton {
     private static final Singleton ourInstance = new Singleton();
-    String wineType;
-    int portType, position;
+
+    int portType;
     List<PortwineObj> portWineArr = new ArrayList<>();
+    List<String> keys = new ArrayList<>();
     Bitmap portBitmap;
     PortwineObj portwineObj;
     int sizeOfRecyler;
-    String key, userID;
+    String key;
 
     private Singleton() {
     }
@@ -24,14 +25,6 @@ public class Singleton {
     //Creates instance for singleton
     public static Singleton getInstance() {
         return ourInstance;
-    }
-
-    public String getWineType() {
-        return wineType;
-    }
-
-    public void setWineType(String type) {
-        this.wineType = type;
     }
 
     public int getPortType() {
@@ -49,33 +42,12 @@ public class Singleton {
         return portWineArr;
     }
 
-    public void addPortwine(PortwineObj portwineObj){
-        portWineArr.add(portwineObj);
-    }
-
     public void setPortWineArr(List<PortwineObj> portWineArr) {
         this.portWineArr = portWineArr;
     }
 
-    public void updatePortWineArr(PortwineObj obj){
-
-        portWineArr.add(position,obj);
-    }
-
-    public Bitmap getPortBitmap() {
-        return portBitmap;
-    }
-
     public void setPortBitmap(Bitmap portBitmap) {
         this.portBitmap = portBitmap;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     public PortwineObj getPortwineObj() {
@@ -102,11 +74,11 @@ public class Singleton {
         this.key = key;
     }
 
-    public String getUserID() {
-        return userID;
+    public void setKeys(List<String> keys) {
+        this.keys = keys;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public List<String> getKeys() {
+        return keys;
     }
 }

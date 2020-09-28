@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.MainActivity.MainActivity">
+    tools:context=".UI.MainActivity.MainActivity"
+    android:background="@drawable/background_choose_port">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,14 +14,15 @@
 
         <TextView
             android:id="@+id/portwine_types"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:text="Wine Storage"
-            android:textSize="26dp"
+            android:textSize="32dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +35,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/portwine_types" />
+            app:layout_constraintTop_toBottomOf="@+id/portwine_types"
+            android:background="@drawable/buttonshape"/>
 
         <Button
             android:id="@+id/button_white"
@@ -41,6 +44,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:text="White"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,11 +52,12 @@
 
 
         <Button
+            android:id="@+id/button_colheita"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_colheita"
             android:text="Colheita"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +65,12 @@
 
 
         <Button
+            android:id="@+id/button_vintage"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_vintage"
             android:text="Vintage"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,33 +78,36 @@
 
 
         <Button
+            android:id="@+id/button_LBV"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_LBV"
             android:text="Late bottle Vintage"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_vintage" />
 
         <Button
+            android:id="@+id/button_10year"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_10year"
             android:text="10 year"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_LBV" />
 
         <Button
+            android:id="@+id/button_20year"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_20year"
             android:text="20 year"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,11 +115,12 @@
 
 
         <Button
+            android:id="@+id/button_30year"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_30year"
             android:text="30 year"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -118,11 +128,12 @@
 
 
         <Button
+            android:id="@+id/button_40year"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_40year"
             android:text="40 year"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,16 +141,25 @@
 
 
         <Button
+            android:id="@+id/button_OtherPort"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/button_OtherPort"
             android:text="Other"
+            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_40year" />
 
+        <Button
+            android:id="@+id/button_backChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:background="@drawable/background_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

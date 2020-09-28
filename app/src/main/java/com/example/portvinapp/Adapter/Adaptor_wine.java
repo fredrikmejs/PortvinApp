@@ -93,8 +93,7 @@ public class Adaptor_wine extends ArrayAdapter<String> {
         viewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Singleton singleton = Singleton.getInstance();
-                singleton.setPosition(position);
+
                 ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.container,new EditPort()).addToBackStack(null).commit();
             }
         });

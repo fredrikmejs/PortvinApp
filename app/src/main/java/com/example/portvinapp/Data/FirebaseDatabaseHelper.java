@@ -27,7 +27,7 @@ public class FirebaseDatabaseHelper {
 
 
     public interface DataStatus{
-        void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys);
+        void DataIsLoaded(List<String> keys);
         void DataIsInserted();
         void DataIsUpdated();
         void DataIsDeleted();
@@ -62,7 +62,9 @@ public class FirebaseDatabaseHelper {
 
                 }
                 singleton.setSizeOfRecyler(size);
-                dataStatus.DataIsLoaded(portwineArr,keys);
+                singleton.setPortWineArr(portwineArr);
+                singleton.setKeys(keys);
+                dataStatus.DataIsLoaded(keys);
             }
 
             @Override
@@ -100,5 +102,8 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+
+
+
 
 }

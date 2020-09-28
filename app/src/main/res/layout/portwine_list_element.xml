@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/buttonshape_home">
 
 
         <TextView
@@ -63,8 +64,8 @@
             android:id="@+id/grade_portwine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="18dp"
             android:text="grade"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
 
         <TextView
             android:id="@+id/winery"
-            android:layout_width="165dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:text="winery"
@@ -94,6 +95,13 @@
             app:layout_constraintTop_toTopOf="@+id/image_wine" />
 
 
+        <TextView
+            android:id="@+id/QTY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty:"
+            app:layout_constraintStart_toStartOf="@id/vintage_portwine"
+            app:layout_constraintTop_toBottomOf="@+id/bottle_year_portwine" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

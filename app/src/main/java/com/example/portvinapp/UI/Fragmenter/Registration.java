@@ -67,6 +67,22 @@ public class Registration extends Fragment {
             }
         });
 
+        Button back = view.findViewById(R.id.authBack_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Fragment fragment = new Login();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(null);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStack();
+                manager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                transaction.commit();
+            }
+        });
+
 
         return view;
     }
@@ -122,6 +138,7 @@ public class Registration extends Fragment {
                             FragmentManager manager = getActivity().getSupportFragmentManager();
                             manager.popBackStack();
                             manager.popBackStack();
+                            manager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
                             transaction.commit();
                         }
                         else {

@@ -34,8 +34,8 @@ import java.util.List;
 public class AddPortwine_fragment extends Fragment implements View.OnClickListener {
 
     ImageView imageView_port;
-    EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade;
-    Button button_delete, button_save;
+    EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty;
+    Button button_delete, button_save, button_back;
     Singleton singleton = Singleton.getInstance();
     Spinner spinner_portType;
     Bitmap bitmap;
@@ -64,11 +64,14 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
 
         editText_grade = view.findViewById(R.id.editText_grade);
 
+        editText_qty = view.findViewById(R.id.editText_qty);
+
         button_delete = view.findViewById(R.id.button_deletePort);
         button_delete.setVisibility(View.INVISIBLE);
 
         button_save = view.findViewById(R.id.save_button);
         button_save.setOnClickListener(this);
+        button_save.setText("Add portwine");
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_layout,getResources().getStringArray(R.array.spinner));
         myAdapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -77,6 +80,19 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         spinner_portType.setSelection(singleton.getPortType());
 
 
+        button_back = view.findViewById(R.id.button_add_edit);
+        button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ChoosePortwine_fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(null);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStack();
+                transaction.commit();
+            }
+        });
         return view;
     }
 
@@ -101,16 +117,14 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         if (v == button_save){
             PortwineObj portwineObj = new PortwineObj();
             String winery, type, wineType;
-            int vintage = -1, bottleYear = -1, grade = -1;
+            int vintage = -1, bottleYear = -1, grade = -1, qty = -1;
 
             try {
                 winery = editText_winery.getText().toString();
 
-
                 wineType = "Portwine";
                 if (!editText_vintage.getText().toString().equals("")) {
                     vintage = Integer.parseInt(editText_vintage.getText().toString());
-
                 }
                 if (!editText_bottleYear.getText().toString().equals("")) {
                     bottleYear = Integer.parseInt(editText_bottleYear.getText().toString());
@@ -118,6 +132,12 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                 if (!editText_grade.getText().toString().equals("")) {
                     grade = Integer.parseInt(editText_grade.getText().toString());
                 }
+
+                if (!editText_qty.getText().toString().equals("")){
+                    qty = Integer.parseInt(editText_qty.getText().toString());
+                }
+
+
 
                 type = spinner_portType.getSelectedItem().toString();
                 switch (type){
@@ -138,45 +158,52 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                         break;
                 }
 
-                portwineObj.setVintage(vintage);
-                portwineObj.setWinery(winery);
-                portwineObj.setType(type);
-                portwineObj.setBottleYear(bottleYear);
-                portwineObj.setGrade(grade);
-                portwineObj.setPortImage(null);
-                portwineObj.setWineType(wineType);
+                if (qty != -1 && !winery.equals("") && !type.equals("")) {
 
-                if (bitmap != null) {
-                    portwineObj.setPortImage(bitmapToByte());
-                } else portwineObj.setPortImage(null);
+                    portwineObj.setVintage(vintage);
+                    portwineObj.setWinery(winery);
+                    portwineObj.setType(type);
+                    portwineObj.setBottleYear(bottleYear);
+                    portwineObj.setGrade(grade);
+                    portwineObj.setPortImage(null);
+                    portwineObj.setWineType(wineType);
+                    portwineObj.setQty(qty);
+
+                    if (bitmap != null) {
+                        portwineObj.setPortImage(bitmapToByte());
+                    } else portwineObj.setPortImage(null);
 
 
-                new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
-                    @Override
-                    public void DataIsLoaded(List<PortwineObj> portwineArr, List<String> keys) {
+                    new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataIsLoaded(List<String> keys) {
 
-                    }
+                        }
 
-                    @Override
-                    public void DataIsInserted() {
-                    }
-                    @Override
-                    public void DataIsUpdated() {
-                    }
-                    @Override
-                    public void DataIsDeleted() {
+                        @Override
+                        public void DataIsInserted() {
+                        }
 
-                    }
-                });
+                        @Override
+                        public void DataIsUpdated() {
+                        }
 
-                Fragment fragment = new PortWine_Fragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment);
-                transaction.addToBackStack(null);
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                manager.popBackStack();
-                transaction.commit();
+                        @Override
+                        public void DataIsDeleted() {
 
+                        }
+                    });
+
+                    Fragment fragment = new PortWine_Fragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, fragment);
+                    transaction.addToBackStack(null);
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    manager.popBackStack();
+                    transaction.commit();
+                } else {
+                    Toast.makeText(getContext(),"Wrong arguments",Toast.LENGTH_LONG).show();
+                }
             }catch (Exception e){
                 Toast.makeText(getContext(),"Wrong argument",Toast.LENGTH_LONG).show();
                 System.out.println(e);
