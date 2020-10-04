@@ -47,9 +47,9 @@
             android:layout_height="37dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
+            android:background="@drawable/buttonshape"
             android:text="Add Wine"
             android:textSize="14dp"
-            android:background="@drawable/buttonshape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,6 +73,20 @@
             android:spinnerMode="dialog"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_numberofPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="0dp"
+
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/portwine_recylervview"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toEndOf="@+id/portwine_recylervview"
             app:layout_constraintTop_toTopOf="parent" />
 
 

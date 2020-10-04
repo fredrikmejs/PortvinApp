@@ -34,12 +34,12 @@ import java.util.List;
 public class EditPort extends Fragment implements View.OnClickListener {
 Singleton singleton = Singleton.getInstance();
 ImageView imageView_port;
-EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty, editText_notes;
+EditText editText_winery, editText_vintage, editText_bottleYear,editText_qty, editText_notes;
 Button button_delete, button_save, button_back;
-Spinner spinner_portType;
+Spinner spinner_portType, spinner_grade;
 Bitmap bitmap;
 String winery, type, wineType, notes;
-int vintage = -1, bottleYear = -1, grade = -1, qty = -1;
+int vintage = -1, bottleYear = -1, qty = -1, grade;
 PortwineObj portwineObj;
 
     public EditPort() {
@@ -95,12 +95,19 @@ PortwineObj portwineObj;
             editText_bottleYear.setText("" + portwineObj.getBottleYear());
         }
 
-        editText_grade = view.findViewById(R.id.editText_grade);
+        spinner_grade = view.findViewById(R.id.spinner_grade);
+        ArrayAdapter<String> gradeAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_layout,getResources().getStringArray(R.array.spinner_grade));
+        gradeAdapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner_grade.setAdapter(gradeAdapter);
 
-        if (portwineObj.getGrade() != -1){
-            editText_grade.setText("" + portwineObj.getGrade());
+
+        if (portwineObj.getGrade() != 10){
+            spinner_grade.setSelection(portwineObj.getGrade());
+        } else {
+            spinner_grade.setSelection(0,false);
         }
 
+        singleton.clearUsedIndexx();
 
         editText_qty = view.findViewById(R.id.editText_qty);
 
@@ -124,7 +131,7 @@ PortwineObj portwineObj;
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new ChoosePortwine_fragment();
+                Fragment fragment = new PortWine_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, fragment);
                 transaction.addToBackStack(null);
@@ -170,8 +177,11 @@ PortwineObj portwineObj;
                 if (!editText_bottleYear.getText().toString().equals("")) {
                     bottleYear = Integer.parseInt(editText_bottleYear.getText().toString());
                 }
-                if (!editText_grade.getText().toString().equals("")) {
-                    grade = Integer.parseInt(editText_grade.getText().toString());
+
+                grade = spinner_grade.getSelectedItemPosition();
+
+                if (grade == 0){
+                    grade = 10;
                 }
 
                 if (!editText_notes.getText().toString().equals("")){
@@ -199,6 +209,7 @@ PortwineObj portwineObj;
                         portwineObj.setPortImage(null);
                     }
 
+                    String a = singleton.getKey();
                     new FirebaseDatabaseHelper().updatePortwine(singleton.getKey(), portwineObj, new FirebaseDatabaseHelper.DataStatus() {
                         @Override
                         public void DataIsLoaded(List<String> keys) {

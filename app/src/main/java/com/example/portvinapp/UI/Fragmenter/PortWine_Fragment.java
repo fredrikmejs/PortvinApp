@@ -1,5 +1,6 @@
 package com.example.portvinapp.UI.Fragmenter;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.portvinapp.Adapter.RecylerView_Config;
 import com.example.portvinapp.Data.FirebaseDatabaseHelper;
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
@@ -31,7 +35,9 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
 
     Button addWine, back;
     RecyclerView mRecyclerView;
-
+    TextView numberOfWine;
+    Singleton singleton = Singleton.getInstance();
+    List<PortwineObj> arr = new ArrayList<>(singleton.getPortWineArr());
 
     public PortWine_Fragment() {
         // Required empty public constructor
@@ -43,11 +49,14 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recyclerview_config, container, false);
 
+
+        numberOfWine = view.findViewById(R.id.textView_numberofPort);
 
 
         addWine = view.findViewById(R.id.button_addWine);
@@ -59,6 +68,8 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Singleton singleton = Singleton.getInstance();
+                singleton.clearUsedIndexx();
                 Fragment fragment = new ChoosePortwine_fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, fragment);
@@ -90,7 +101,6 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
                                     return Integer.compare(o1.getGrade(), o2.getGrade());
                                 }
                             });
-                            Collections.reverse(portwineArr);
                             singleton.setPortWineArr(portwineArr);
                             break;
                         case 2:
@@ -124,8 +134,6 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
                             singleton.setPortWineArr(portwineArr);
                             break;
                     }
-
-                    new RecylerView_Config().setConfig(mRecyclerView,getContext(),singleton.getKeys());
                 }
             }
 
@@ -139,7 +147,9 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
             new FirebaseDatabaseHelper().readPortwine(new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(List<String> keys) {
+                Log.d("TEST", "DataIsLoaded: 2 ");
                 new RecylerView_Config().setConfig(mRecyclerView,getContext(), keys);
+
             }
 
             @Override
@@ -157,9 +167,9 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
 
             }
         });
-
-
-
+        if (arr.size() > 0) {
+            numberOfWine.setText("Amount:  " + totalPort());
+         }
 
         return view;
     }
@@ -172,9 +182,21 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.container, fragment);
             transaction.addToBackStack(null);
-            FragmentManager manager = getActivity().getSupportFragmentManager();
-            manager.popBackStack();
             transaction.commit();
         }
+    }
+
+    public int totalPort(){
+        int totalNum = 0;
+
+        String name = "" + Portwine_enum.forValue(singleton.getPortType());
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            if (arr.get(i).getType().equals(name)) {
+                totalNum += arr.get(i).getQty();
+            }
+        }
+        return totalNum;
     }
 }

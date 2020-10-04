@@ -11,13 +11,13 @@
         android:layout_width="345dp"
         android:layout_height="133dp"
         android:layout_margin="5dp"
+        android:background="@drawable/buttonshape_home"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/buttonshape_home">
+        app:layout_constraintVertical_bias="0.0">
 
 
         <TextView
@@ -49,6 +49,7 @@
             android:layout_width="85dp"
             android:layout_height="35dp"
             android:layout_marginTop="2dp"
+            android:background="@drawable/background_edit_button"
             android:bottomLeftRadius="30dp"
             android:bottomRightRadius="30dp"
             android:text="edit"
@@ -57,7 +58,6 @@
             android:textSize="11sp"
             android:topLeftRadius="30dp"
             android:topRightRadius="30dp"
-            android:background="@drawable/background_edit_button"
             app:layout_constraintStart_toStartOf="@+id/image_wine"
             app:layout_constraintTop_toBottomOf="@+id/image_wine" />
 
@@ -66,11 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="16dp"
             android:text="grade"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/winery" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_wine"
@@ -88,7 +88,7 @@
             android:id="@+id/winery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="20dp"
             android:text="winery"
             android:textColor="#0A0101"
             android:textSize="18sp"

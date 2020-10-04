@@ -16,4 +16,5 @@ firebase (CRUD)
 logud knap
 upload/hente billeder
 Fix backtrace (skal testes)
+tilføj dialogbox med noter + noter i add/edit
 Tilbage knapper

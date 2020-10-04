@@ -1,8 +1,5 @@
 package com.example.portvinapp.Objekter;
 
-
-import android.util.Base64;
-
 public class PortwineObj {
 
     String winery, type, wine_type;
@@ -10,6 +7,7 @@ public class PortwineObj {
     String bitmap;
     String portImage;
     String notes;
+
 
     public PortwineObj(){
 
@@ -26,10 +24,6 @@ public class PortwineObj {
         this.qty = Integer.parseInt(qty);
         this.notes = notes;
 
-    }
-
-    public String getWineType() {
-        return wine_type;
     }
 
     public void setWineType(String wineType) {

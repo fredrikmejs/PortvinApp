@@ -1,7 +1,6 @@
 package com.example.portvinapp.Domain.Singleton;
 
 import android.graphics.Bitmap;
-import android.widget.ProgressBar;
 
 import com.example.portvinapp.Objekter.PortwineObj;
 
@@ -16,8 +15,9 @@ public class Singleton {
     List<String> keys = new ArrayList<>();
     Bitmap portBitmap;
     PortwineObj portwineObj;
-    int sizeOfRecyler;
+    int sizeOfRecyler, position;
     String key;
+    List<Integer> usedIndex = new ArrayList<>();
 
     private Singleton() {
     }
@@ -25,6 +25,14 @@ public class Singleton {
     //Creates instance for singleton
     public static Singleton getInstance() {
         return ourInstance;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public int getPortType() {
@@ -72,5 +80,24 @@ public class Singleton {
 
     public List<String> getKeys() {
         return keys;
+    }
+
+    public void setSizeOfRecyler(int sizeOfRecyler) {
+        this.sizeOfRecyler = sizeOfRecyler;
+    }
+
+    public int getSizeOfRecyler() {
+        return sizeOfRecyler;
+    }
+
+    public List<Integer> getUsedIndex() {
+        return usedIndex;
+    }
+
+    public void addUsedIndex(int index) {
+        this.usedIndex.add(index);
+    }
+    public void clearUsedIndexx(){
+        usedIndex.clear();
     }
 }

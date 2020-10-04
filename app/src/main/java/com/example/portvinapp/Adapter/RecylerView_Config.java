@@ -1,10 +1,10 @@
 package com.example.portvinapp.Adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +26,7 @@ import com.example.portvinapp.R;
 import com.example.portvinapp.UI.Fragmenter.EditPort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecylerView_Config {
@@ -34,6 +35,8 @@ public class RecylerView_Config {
     private Context mContext;
     private List<PortwineObj> portwineArr = new ArrayList<>();
     private PortwineObj portwineObj;
+
+
 
 
     public void setConfig(RecyclerView recyclerView, Context context, List<String> keys){
@@ -90,7 +93,6 @@ public class RecylerView_Config {
             String name1 = objPort.getType();
             if (name1.equals(name)) {
 
-
             correctPort();
             portwineType.setText("Port type: " + name);
 
@@ -107,8 +109,10 @@ public class RecylerView_Config {
                 bottleYear.setVisibility(View.INVISIBLE);
             }
 
-            if (objPort.getGrade() != -1) {
-                grade.setText("Points: \n" + objPort.getGrade());
+            List<String> gradeString = new ArrayList(Arrays.asList(mContext.getResources().getStringArray(R.array.spinner_grade)));
+
+            if (objPort.getGrade() != 10) {
+                grade.setText("Grade: \n" +  gradeString.get(portwineObj.getGrade()));
             } else {
                 grade.setVisibility(View.INVISIBLE);
             }
@@ -128,10 +132,8 @@ public class RecylerView_Config {
                 @Override
                 public void onClick(View v) {
                     Singleton singleton = Singleton.getInstance();
-                    singleton.setPortwineObj(portwineObj);
+                    singleton.setPortwineObj(portwineObjFinal1);
                     singleton.setKey(key);
-                    FragmentManager manager = ((FragmentActivity)mContext).getSupportFragmentManager();
-                    manager.popBackStack();
                     ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.container, new EditPort()).addToBackStack(null).commit();
                 }
             });
@@ -139,18 +141,19 @@ public class RecylerView_Config {
             notes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openDialog();
+                    openDialog(portwineObjFinal1);
                 }
 
 
             });
+                //  Log.d("TEST", "bind:" + winery.getText().toString());
+            }
 
-       }
         this.key = key;
 
     }
 
-        private void openDialog() {
+        private void openDialog(PortwineObj portwineObj) {
             singleton.setPortwineObj(portwineObj);
             DialogBoxers dialogbox = new DialogBoxers(mContext);
             dialogbox.show(((FragmentActivity) mContext).getSupportFragmentManager(),"Noter");
@@ -196,13 +199,30 @@ public class RecylerView_Config {
 
         @Override
         public void onBindViewHolder(@NonNull PortWineItemView holder, int position) {
-            holder.bind(portwineArr.get(position), portwineArr.get(position), mKeys.get(position));
+            String name = "" + Portwine_enum.forValue(singleton.getPortType());
+            singleton.setPosition(position);
+            List<Integer> used = new ArrayList<>(singleton.getUsedIndex());
+            if(position >= portwineArr.size()){
+                singleton.clearUsedIndexx();
+            }
+
+            for (int i = 0; i < portwineArr.size(); i++) {
+                 if (portwineArr.get(i).getType().equals(name)) {
+                    if (!used.contains(i)) {
+                        singleton.addUsedIndex(i);
+                        holder.bind(portwineArr.get(i), portwineArr.get(i), mKeys.get(i));
+                        break;
+                    }
+                }
+            }
+            Log.d("TEST", "bind: " + name);
             singleton.setPortWineArr(portwineArr);
-        }
+            }
+
 
         @Override
         public int getItemCount() {
-            return portwineArr.size();
+            return singleton.getSizeOfRecyler();
         }
 
 

@@ -23,7 +23,19 @@
         <item>Qty</item>
         <item>Vintage year</item>
         <item>Bottle year</item>
+    </string-array>
+
+    <string-array name="spinner_grade">
+        <item>Grading:</item>
+        <item>Excellent</item>
+        <item>Great</item>
+        <item>Good</item>
+        <item>Decent</item>
+        <item>Boring</item>
+        <item>Bad</item>
+        <item>Terrible</item>
 
     </string-array>
+
 
 </resources>

@@ -49,20 +49,24 @@ public class FirebaseDatabaseHelper {
                 portwineArr.clear();
                 Singleton singleton = Singleton.getInstance();
                 int size = 0;
+                PortwineObj portwineObj = null;
                 ArrayList<String> keys = new ArrayList<>();
                 for(DataSnapshot keynode : dataSnapshot.getChildren()){
                     keys.add(keynode.getKey());
-                    PortwineObj portwineObj = keynode.getValue(PortwineObj.class);
+                    portwineObj = keynode.getValue(PortwineObj.class);
+                    portwineArr.add(portwineObj);
+
                     String name = ""+ Portwine_enum.forValue(singleton.getPortType());
 
                     if (portwineObj.getType().equals(name)){
                         size++;
-                        portwineArr.add(portwineObj);
                     }
 
                 }
+                
                 singleton.setPortWineArr(portwineArr);
                 singleton.setKeys(keys);
+                singleton.setSizeOfRecyler(size);
                 dataStatus.DataIsLoaded(keys);
             }
 

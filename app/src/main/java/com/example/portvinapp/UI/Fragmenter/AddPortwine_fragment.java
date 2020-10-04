@@ -34,10 +34,10 @@ import java.util.List;
 public class AddPortwine_fragment extends Fragment implements View.OnClickListener {
 
     ImageView imageView_port;
-    EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty, editText_notes;
+    EditText editText_winery, editText_vintage, editText_bottleYear, editText_qty, editText_notes;
     Button button_delete, button_save, button_back;
     Singleton singleton = Singleton.getInstance();
-    Spinner spinner_portType;
+    Spinner spinner_portType, spinner_grade;
     Bitmap bitmap;
 
     @Override
@@ -62,7 +62,15 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
 
         editText_bottleYear = view.findViewById(R.id.editText_bottleYear);
 
-        editText_grade = view.findViewById(R.id.editText_grade);
+        spinner_grade = view.findViewById(R.id.spinner_grade);
+
+        ArrayAdapter<String> gradeAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_layout,getResources().getStringArray(R.array.spinner_grade));
+        gradeAdapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner_grade.setAdapter(gradeAdapter);
+
+        spinner_grade.setSelection(0,false);
+
+
 
         editText_qty = view.findViewById(R.id.editText_qty);
 
@@ -74,6 +82,7 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         button_save = view.findViewById(R.id.save_button);
         button_save.setOnClickListener(this);
         button_save.setText("Add portwine");
+        singleton.clearUsedIndexx();
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_layout,getResources().getStringArray(R.array.spinner));
         myAdapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -117,9 +126,9 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == button_save){
-            PortwineObj portwineObj = new PortwineObj();
+            final PortwineObj portwineObj = new PortwineObj();
             String winery, type, wineType, notes = " ";
-            int vintage = -1, bottleYear = -1, grade = -1, qty = -1;
+                int vintage = -1, bottleYear = -1, qty = -1, grade;
 
             try {
                 winery = editText_winery.getText().toString();
@@ -136,8 +145,10 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                 if (!editText_bottleYear.getText().toString().equals("")) {
                     bottleYear = Integer.parseInt(editText_bottleYear.getText().toString());
                 }
-                if (!editText_grade.getText().toString().equals("")) {
-                    grade = Integer.parseInt(editText_grade.getText().toString());
+                grade = spinner_grade.getSelectedItemPosition();
+
+                if (grade == 0){
+                    grade = 10;
                 }
 
                 if (!editText_qty.getText().toString().equals("")){
@@ -172,7 +183,6 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     portwineObj.setType(type);
                     portwineObj.setBottleYear(bottleYear);
                     portwineObj.setGrade(grade);
-                    portwineObj.setPortImage(null);
                     portwineObj.setWineType(wineType);
                     portwineObj.setQty(qty);
                     portwineObj.setNotes(notes);
@@ -185,7 +195,6 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     new FirebaseDatabaseHelper().addPortwine(portwineObj, new FirebaseDatabaseHelper.DataStatus() {
                         @Override
                         public void DataIsLoaded(List<String> keys) {
-
                         }
 
                         @Override
