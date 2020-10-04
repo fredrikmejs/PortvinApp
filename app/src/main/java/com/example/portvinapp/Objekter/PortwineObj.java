@@ -9,12 +9,13 @@ public class PortwineObj {
     int vintage, bottle_year, grade, qty;
     String bitmap;
     String portImage;
+    String notes;
 
     public PortwineObj(){
 
     }
 
-    public PortwineObj(String bottle_year, String bitmap, String grade, String type, String vintage, String wine_type, String winery, String qty){
+    public PortwineObj(String bottle_year, String bitmap, String grade, String type, String vintage, String wine_type, String winery, String qty, String notes){
         this.winery = winery;
         this.vintage = Integer.parseInt(vintage);
         this.bottle_year = Integer.parseInt(bottle_year);
@@ -23,21 +24,9 @@ public class PortwineObj {
         this.bitmap = bitmap;
         this.wine_type = wine_type;
         this.qty = Integer.parseInt(qty);
+        this.notes = notes;
 
     }
-
-/*
-    public PortwineObj(int bottle_year, int grade, String bitmap, String type, int vintage, String wine_type, String winery){
-        this.winery = winery;
-        this.vintage = vintage;
-        this.bottle_year = bottle_year;
-        this.grade = grade;
-        this.type = type;
-        this.wine_type = wine_type;
-        this.portImage = bitmap;
-    }
-
- */
 
     public String getWineType() {
         return wine_type;
@@ -101,5 +90,13 @@ public class PortwineObj {
 
     public void setQty(int qty) {
         this.qty = qty;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

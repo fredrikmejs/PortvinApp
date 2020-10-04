@@ -19,8 +19,8 @@
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:text="Wine Storage"
-            android:textSize="32dp"
             android:textColor="@color/black"
+            android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +30,25 @@
             android:id="@+id/button_tawny"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:text="Tawny"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/portwine_types"
+            app:layout_constraintTop_toBottomOf="@+id/introduction_text"
             android:background="@drawable/buttonshape"/>
+
+        <Button
+            android:id="@+id/button_ruby"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Ruby"
+            android:background="@drawable/buttonshape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_white" />
 
         <Button
             android:id="@+id/button_white"
@@ -61,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_white" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ruby" />
 
 
         <Button
@@ -160,6 +172,18 @@
             android:background="@drawable/background_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/introduction_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:text="Choose the portwine you want to see from your storage"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/portwine_types"
+            android:textColor="@color/black"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@ import java.util.List;
 public class AddPortwine_fragment extends Fragment implements View.OnClickListener {
 
     ImageView imageView_port;
-    EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty;
+    EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty, editText_notes;
     Button button_delete, button_save, button_back;
     Singleton singleton = Singleton.getInstance();
     Spinner spinner_portType;
@@ -69,6 +69,8 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         button_delete = view.findViewById(R.id.button_deletePort);
         button_delete.setVisibility(View.INVISIBLE);
 
+        editText_notes = view.findViewById(R.id.editText_notes);
+
         button_save = view.findViewById(R.id.save_button);
         button_save.setOnClickListener(this);
         button_save.setText("Add portwine");
@@ -84,7 +86,7 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new ChoosePortwine_fragment();
+                Fragment fragment = new PortWine_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, fragment);
                 transaction.addToBackStack(null);
@@ -116,13 +118,18 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         if (v == button_save){
             PortwineObj portwineObj = new PortwineObj();
-            String winery, type, wineType;
+            String winery, type, wineType, notes = " ";
             int vintage = -1, bottleYear = -1, grade = -1, qty = -1;
 
             try {
                 winery = editText_winery.getText().toString();
 
                 wineType = "Portwine";
+
+                if (!editText_notes.getText().toString().equals("")){
+                    notes = editText_notes.getText().toString();
+                }
+
                 if (!editText_vintage.getText().toString().equals("")) {
                     vintage = Integer.parseInt(editText_vintage.getText().toString());
                 }
@@ -168,6 +175,7 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     portwineObj.setPortImage(null);
                     portwineObj.setWineType(wineType);
                     portwineObj.setQty(qty);
+                    portwineObj.setNotes(notes);
 
                     if (bitmap != null) {
                         portwineObj.setPortImage(bitmapToByte());

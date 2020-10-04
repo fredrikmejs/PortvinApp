@@ -6,14 +6,15 @@ import java.util.Map;
 public enum Portwine_enum {
     Tawny(0),
     White(1),
-    Colheita(2),
-    Vintage(3),
-    LBV(4),
-    age10(5),
-    age20(6),
-    age30(7),
-    age40(8),
-    Other(9);
+    Ruby(2),
+    Colheita(3),
+    Vintage(4),
+    LBV(5),
+    age10(6),
+    age20(7),
+    age30(8),
+    age40(9),
+    Other(10);
 
     private  int value;
 

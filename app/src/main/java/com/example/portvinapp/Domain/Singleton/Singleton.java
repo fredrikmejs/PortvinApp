@@ -58,14 +58,6 @@ public class Singleton {
         this.portwineObj = portwineObj;
     }
 
-    public int getSizeOfRecyler() {
-        return sizeOfRecyler;
-    }
-
-    public void setSizeOfRecyler(int sizeOfRecyler) {
-        this.sizeOfRecyler = sizeOfRecyler;
-    }
-
     public String getKey() {
         return key;
     }

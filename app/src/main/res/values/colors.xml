@@ -5,4 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="black">#101010</color>
     <color name="buttongrey">#E0E0E0</color>
+    <color name="gray" >#AFAAAA</color>
+    <color name="red">#C7B02F2F</color>
 </resources>

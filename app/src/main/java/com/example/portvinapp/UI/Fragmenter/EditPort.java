@@ -34,11 +34,11 @@ import java.util.List;
 public class EditPort extends Fragment implements View.OnClickListener {
 Singleton singleton = Singleton.getInstance();
 ImageView imageView_port;
-EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty;
+EditText editText_winery, editText_vintage, editText_bottleYear, editText_grade, editText_qty, editText_notes;
 Button button_delete, button_save, button_back;
 Spinner spinner_portType;
 Bitmap bitmap;
-String winery, type, wineType;
+String winery, type, wineType, notes;
 int vintage = -1, bottleYear = -1, grade = -1, qty = -1;
 PortwineObj portwineObj;
 
@@ -60,10 +60,16 @@ PortwineObj portwineObj;
 
         portwineObj = singleton.getPortwineObj();
 
+
+        editText_notes = view.findViewById(R.id.editText_notes);
+
+        if (portwineObj.getNotes() != null){
+            editText_notes.setText(portwineObj.getNotes());
+        }
+
+
         imageView_port = view.findViewById(R.id.imagebutton_picture);
         imageView_port.setOnClickListener(this);
-        //bitmap = portwineObj.getPortImage();
-
 
         if (portwineObj.getPortImage() != null){
             byte[] b = Base64.decode(portwineObj.getPortImage(),Base64.DEFAULT);
@@ -168,6 +174,10 @@ PortwineObj portwineObj;
                     grade = Integer.parseInt(editText_grade.getText().toString());
                 }
 
+                if (!editText_notes.getText().toString().equals("")){
+                    notes = editText_notes.getText().toString();
+                }
+
 
                 qty = Integer.parseInt(editText_qty.getText().toString());
 
@@ -181,6 +191,7 @@ PortwineObj portwineObj;
                     portwineObj.setVintage(vintage);
                     portwineObj.setBottleYear(bottleYear);
                     portwineObj.setQty(qty);
+                    portwineObj.setNotes(notes);
 
                     if (bitmap != null) {
                         portwineObj.setPortImage(bitmapToByte());

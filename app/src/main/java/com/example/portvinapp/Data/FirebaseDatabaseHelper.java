@@ -61,7 +61,6 @@ public class FirebaseDatabaseHelper {
                     }
 
                 }
-                singleton.setSizeOfRecyler(size);
                 singleton.setPortWineArr(portwineArr);
                 singleton.setKeys(keys);
                 dataStatus.DataIsLoaded(keys);

@@ -1,14 +1,14 @@
 
 TODO
 
-design
+tilføj dialogbox med noter + noter i add/edit
 
 
 
 
 
 DONE
-
+TIlføj ruby til listen
 Kamera
 edit
 Authentication

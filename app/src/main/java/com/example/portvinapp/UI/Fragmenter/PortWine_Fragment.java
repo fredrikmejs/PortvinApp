@@ -13,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.portvinapp.Adapter.Adaptor_wine;
 import com.example.portvinapp.Adapter.RecylerView_Config;
 import com.example.portvinapp.Data.FirebaseDatabaseHelper;
 import com.example.portvinapp.Domain.Singleton.Singleton;
@@ -24,7 +22,6 @@ import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

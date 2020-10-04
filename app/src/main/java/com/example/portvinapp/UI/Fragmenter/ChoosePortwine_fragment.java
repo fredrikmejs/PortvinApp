@@ -17,7 +17,7 @@ import com.example.portvinapp.R;
 
 public class ChoosePortwine_fragment extends Fragment implements View.OnClickListener {
 
-    Button tawny_button, white_button, colheita_button, vintage_button, lbv_button, year10_button, year20_button, year30_button, year40_button, otherPort_button, back_button;
+    Button tawny_button, white_button, colheita_button, vintage_button, lbv_button, year10_button, year20_button, year30_button, year40_button, otherPort_button, back_button, ruby_button;
 
     public ChoosePortwine_fragment() {
         // Required empty public constructor
@@ -37,6 +37,8 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         tawny_button.setOnClickListener(this);
         white_button = view.findViewById(R.id.button_white);
         white_button.setOnClickListener(this);
+        ruby_button = view.findViewById(R.id.button_ruby);
+        ruby_button.setOnClickListener(this);
         colheita_button = view.findViewById(R.id.button_colheita);
         colheita_button.setOnClickListener(this);
         vintage_button = view.findViewById(R.id.button_vintage);
@@ -69,6 +71,8 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
 
 
 
+
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -78,26 +82,41 @@ public class ChoosePortwine_fragment extends Fragment implements View.OnClickLis
         Singleton singleton = Singleton.getInstance();
 
         Fragment fragment = new PortWine_Fragment();
-        if (v.getId() ==R.id.button_tawny){
-            singleton.setPortType(0);
-        } else if (v.getId()==R.id.button_white) {
-            singleton.setPortType(1);
-        } else if (v.getId()==R.id.button_colheita){
-            singleton.setPortType(2);
-        } else if (v.getId()==R.id.button_vintage){
-            singleton.setPortType(3);
-        } else if (v.getId()==R.id.button_LBV) {
-            singleton.setPortType(4);
-        } else if(v.getId()==R.id.button_10year){
-            singleton.setPortType(5);
-        } else if(v.getId()==R.id.button_20year){
-            singleton.setPortType(6);
-        } else if(v.getId()==R.id.button_30year){
-            singleton.setPortType(7);
-        } else if(v.getId()==R.id.button_40year){
-            singleton.setPortType(8);
-        } else {
-            singleton.setPortType(9);
+
+        switch (v.getId()) {
+            case R.id.button_tawny:
+                singleton.setPortType(0);
+                break;
+            case R.id.button_white:
+                singleton.setPortType(1);
+                break;
+            case R.id.button_ruby:
+                singleton.setPortType(2);
+                break;
+            case R.id.button_colheita:
+                singleton.setPortType(3);
+                break;
+            case R.id.button_vintage:
+                singleton.setPortType(4);
+                break;
+            case R.id.button_LBV:
+                singleton.setPortType(5);
+                break;
+            case R.id.button_10year:
+                singleton.setPortType(6);
+                break;
+            case R.id.button_20year:
+                singleton.setPortType(7);
+                break;
+            case R.id.button_30year:
+                singleton.setPortType(8);
+                break;
+            case R.id.button_40year:
+                singleton.setPortType(9);
+                break;
+            case R.id.button_OtherPort:
+                singleton.setPortType(10);
+                break;
         }
 
 
