@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.portvinapp.Data.FirebaseDatabaseHelper;
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
@@ -111,16 +112,7 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bitmap = (Bitmap) data.getExtras().get("data");
-
-        Matrix matrix = new Matrix();
-
-        matrix.postRotate(90);
-
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth(), true);
-
-        bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         imageView_port.setImageBitmap(bitmap);
-        singleton.setPortBitmap(bitmap);
     }
 
     @Override
@@ -186,6 +178,8 @@ public class AddPortwine_fragment extends Fragment implements View.OnClickListen
                     portwineObj.setWineType(wineType);
                     portwineObj.setQty(qty);
                     portwineObj.setNotes(notes);
+
+                    singleton.setPortType(Portwine_enum.valueOf(type).getValue());
 
                     if (bitmap != null) {
                         portwineObj.setPortImage(bitmapToByte());

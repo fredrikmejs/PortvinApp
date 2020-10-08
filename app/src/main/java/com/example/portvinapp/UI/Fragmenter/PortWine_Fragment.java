@@ -64,6 +64,27 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
 
         mRecyclerView = view.findViewById(R.id.portwine_recylervview);
 
+        TextView title = view.findViewById(R.id.textView_wineType);
+        String type = "" + Portwine_enum.forValue(singleton.getPortType());
+        switch (type){
+            case "LBV":
+                type = "Late Bottle Vintage";
+                break;
+            case "age10":
+                type = "10 Year";
+                break;
+            case "age20":
+                type = "20 Year";
+                break;
+            case "age30":
+                type = "30 Year";
+                break;
+            case "age40":
+                type = "40 Year";
+                break;
+        }
+        title.setText("" + type);
+
         back = view.findViewById(R.id.back_recyklerview);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

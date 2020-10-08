@@ -38,7 +38,9 @@ public class FirebaseDatabaseHelper {
         mDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userID = mAuth.getCurrentUser().getUid();
-        mRef = mDatabase.getReference(userID + "/Portwine");
+        Singleton singleton = Singleton.getInstance();
+        String category = "" + Portwine_enum.forValue(singleton.getPortType());
+        mRef = mDatabase.getReference(userID + "/Portwine" + "/" + category);
     }
 
     public void readPortwine(final DataStatus dataStatus){

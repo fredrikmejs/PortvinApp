@@ -13,7 +13,6 @@ public class Singleton {
     int portType;
     List<PortwineObj> portWineArr = new ArrayList<>();
     List<String> keys = new ArrayList<>();
-    Bitmap portBitmap;
     PortwineObj portwineObj;
     int sizeOfRecyler, position;
     String key;
@@ -54,10 +53,6 @@ public class Singleton {
         this.portWineArr = portWineArr;
     }
 
-    public void setPortBitmap(Bitmap portBitmap) {
-        this.portBitmap = portBitmap;
-    }
-
     public PortwineObj getPortwineObj() {
         return portwineObj;
     }
@@ -76,10 +71,6 @@ public class Singleton {
 
     public void setKeys(List<String> keys) {
         this.keys = keys;
-    }
-
-    public List<String> getKeys() {
-        return keys;
     }
 
     public void setSizeOfRecyler(int sizeOfRecyler) {

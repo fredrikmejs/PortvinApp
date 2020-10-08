@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.portvinapp.Data.FirebaseDatabaseHelper;
+import com.example.portvinapp.Domain.Singleton.Portwine_enum;
 import com.example.portvinapp.Domain.Singleton.Singleton;
 import com.example.portvinapp.Objekter.PortwineObj;
 import com.example.portvinapp.R;
@@ -159,7 +160,6 @@ PortwineObj portwineObj;
         bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         imageView_port.setImageBitmap(bitmap);
 
-        singleton.setPortBitmap(bitmap);
     }
 
     @Override
@@ -202,6 +202,8 @@ PortwineObj portwineObj;
                     portwineObj.setBottleYear(bottleYear);
                     portwineObj.setQty(qty);
                     portwineObj.setNotes(notes);
+
+                    singleton.setPortType(Portwine_enum.valueOf(type).getValue());
 
                     if (bitmap != null) {
                         portwineObj.setPortImage(bitmapToByte());

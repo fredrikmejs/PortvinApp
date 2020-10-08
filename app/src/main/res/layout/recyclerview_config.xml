@@ -17,8 +17,8 @@
             android:id="@+id/back_recyklerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
             android:background="@drawable/background_back"
+            android:text="Back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,13 +26,13 @@
             android:id="@+id/textView_wineType"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
+            android:layout_marginStart="55dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="160dp"
             android:text="Port Wine"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_recyklerview"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="VinType" />
     </androidx.constraintlayout.widget.ConstraintLayout>

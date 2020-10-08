@@ -27,9 +27,9 @@
                 android:paddingStart="10dp"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText_vintage"
                 app:layout_constraintHorizontal_bias="0.428"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editText_vintage"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" />
 
 
@@ -149,9 +149,9 @@
                 android:paddingStart="10dp"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.428"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_portType"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/spinner_portType"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle2" />
 
             <Spinner
@@ -163,9 +163,9 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/buttonshape"
                 android:paddingStart="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText_winery"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editText_winery"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle4" />
 
 
@@ -207,9 +207,9 @@
                 android:spinnerMode="dialog"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText_bottleYear"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/editText_bottleYear"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle31" />
 
 
@@ -217,7 +217,7 @@
                 android:id="@+id/textViewTitle53"
                 android:layout_width="320dp"
                 android:layout_height="31dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:paddingStart="5dp"
                 android:text="Notes"
@@ -230,19 +230,17 @@
                 android:id="@+id/editText_notes"
                 android:layout_width="320dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="45dp"
                 android:background="@drawable/background_notes_add"
                 android:gravity="start"
                 android:paddingStart="10dp"
                 android:textAllCaps="false"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_grade"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/spinner_grade"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle53" />
-
 
             <TextView
                 android:id="@+id/textViewTitle32"
@@ -269,9 +267,9 @@
                 android:paddingStart="10dp"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText_notes"
+                app:layout_constraintHorizontal_bias="0.433"
+                app:layout_constraintStart_toStartOf="@+id/editText_notes"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle32" />
 
             <Button
