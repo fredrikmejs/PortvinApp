@@ -199,7 +199,7 @@ public class RecylerView_Config {
 
         @Override
         public void onBindViewHolder(@NonNull PortWineItemView holder, int position) {
-            String name = "" + Portwine_enum.forValue(singleton.getPortType());
+            //String name = "" + Portwine_enum.forValue(singleton.getPortType());
             singleton.setPosition(position);
             List<Integer> used = new ArrayList<>(singleton.getUsedIndex());
             if(position >= portwineArr.size()){
@@ -207,15 +207,14 @@ public class RecylerView_Config {
             }
 
             for (int i = 0; i < portwineArr.size(); i++) {
-                 if (portwineArr.get(i).getType().equals(name)) {
+                // if (portwineArr.get(i).getType().equals(name)) {
                     if (!used.contains(i)) {
                         singleton.addUsedIndex(i);
                         holder.bind(portwineArr.get(i), portwineArr.get(i), mKeys.get(i));
                         break;
-                    }
+                  //  }
                 }
             }
-            Log.d("TEST", "bind: " + name);
             singleton.setPortWineArr(portwineArr);
             }
 

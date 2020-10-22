@@ -101,8 +101,13 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
             }
         });
 
-        Spinner spinner_sortBy = view.findViewById(R.id.spinner_sortby);
 
+
+
+        Spinner spinner_sortBy = view.findViewById(R.id.spinner_sortby);
+        spinner_sortBy.setVisibility(View.INVISIBLE);
+
+        /*
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_layout,getResources().getStringArray(R.array.spinner_sortby));
         myAdapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner_sortBy.setSelection(0,false);
@@ -163,6 +168,8 @@ public class PortWine_Fragment extends Fragment implements View.OnClickListener 
 
             }
         });
+
+     */
 
 
             new FirebaseDatabaseHelper().readPortwine(new FirebaseDatabaseHelper.DataStatus() {

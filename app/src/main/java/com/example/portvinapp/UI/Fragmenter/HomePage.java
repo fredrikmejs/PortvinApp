@@ -58,6 +58,7 @@ public class HomePage extends Fragment implements View.OnClickListener {
         if (v == redWine_button || v == whiteWine_button || v == rose_button){
             Toast.makeText(getContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
         }
+
         if (v == signout_button){
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.signOut();

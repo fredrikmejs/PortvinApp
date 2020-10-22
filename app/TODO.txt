@@ -1,8 +1,6 @@
 
 TODO
 
-tilføj dialogbox med noter + noter i add/edit
-
 
 
 
@@ -18,3 +16,4 @@ upload/hente billeder
 Fix backtrace (skal testes)
 tilføj dialogbox med noter + noter i add/edit
 Tilbage knapper
+tilføj dialogbox med noter + noter i add/edit
